@@ -75,3 +75,8 @@ python python/location_shortlist.py
 The examples deduplicate offer-level search results by seller, fetch each candidate's public manifest, rank actionability, run a safe dry-run checkout or negotiation, and stop before any buyer-approved action.
 
 `location` is the current search filter. `lat` and `lng` are returned as buyer context only; they do not currently filter or rerank results.
+
+## License
+
+MIT. See [LICENSE](LICENSE). Copy these examples into your own agents freely.
+The Nexez platform and the published SDKs are licensed separately.
