@@ -1,0 +1,47 @@
+name: OpenClaw plugin
+
+# Read-only checks for openclaw-plugin/. This workflow does not publish to
+# npm or ClawHub and does not use secrets.
+
+on:
+  pull_request:
+    paths:
+      - 'openclaw-plugin/**'
+      - '.github/workflows/openclaw-plugin.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'openclaw-plugin/**'
+      - '.github/workflows/openclaw-plugin.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify artifact and gauntlets
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: openclaw-plugin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: openclaw-plugin/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Verify published 0.2.2 artifact
+        run: node scripts/verify-published-artifact.mjs
+      - name: Validate metadata
+        run: node scripts/validate-metadata.mjs
+      - name: Contract gauntlet
+        run: npm run gauntlet
+      - name: Gateway gauntlet
+        run: npm run gauntlet:gateway
+      - name: Production gauntlet
+        run: npm run gauntlet:production

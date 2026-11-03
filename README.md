@@ -76,6 +76,10 @@ The examples deduplicate offer-level search results by seller, fetch each candid
 
 `location` is the current search filter. `lat` and `lng` are returned as buyer context only; they do not currently filter or rerank results.
 
+## OpenClaw plugin
+
+[`openclaw-plugin/`](openclaw-plugin/) is the public source for `@nexez/openclaw-nexez` 0.2.2, the buyer-side OpenClaw plugin. It discovers Nexez pages and hands off checkout or negotiation only after explicit approval. Install the published package with `openclaw plugins install npm:@nexez/openclaw-nexez`. The approval model is in [openclaw-plugin/SECURITY.md](openclaw-plugin/SECURITY.md).
+
 ## License
 
 MIT. See [LICENSE](LICENSE). Copy these examples into your own agents freely.
