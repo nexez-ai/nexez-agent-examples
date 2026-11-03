@@ -1,0 +1,46 @@
+{
+  "name": "@nexez/openclaw-nexez",
+  "version": "0.2.2",
+  "description": "OpenClaw tool plugin for discovering Nexez agent pages and safely handing off checkout or negotiation intent.",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist",
+    "LICENSE",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node scripts/validate-metadata.mjs",
+    "gauntlet": "npm run build && node scripts/gauntlet-contract.mjs",
+    "gauntlet:gateway": "npm run build && node scripts/gauntlet-gateway.mjs",
+    "gauntlet:production": "npm run build && node scripts/gauntlet-production.mjs --production",
+    "gauntlet:install": "node scripts/gauntlet-install.mjs",
+    "prepublishOnly": "npm test && npm run gauntlet && npm run plugin:validate",
+    "plugin:build": "npm run build && openclaw plugins build --entry ./dist/index.js",
+    "plugin:validate": "openclaw plugins validate --root . --entry ./dist/index.js"
+  },
+  "dependencies": {
+    "typebox": "^1.1.38"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.6.8 <2027.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "openclaw": "2026.7.1",
+    "typescript": "^5.8.3"
+  },
+  "openclaw": {
+    "compat": {
+      "pluginApi": ">=2026.6.8 <2027.0.0"
+    },
+    "build": {
+      "openclawVersion": "2026.7.1"
+    },
+    "extensions": [
+      "./dist/index.js"
+    ]
+  }
+}
